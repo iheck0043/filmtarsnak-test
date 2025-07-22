@@ -36,7 +36,11 @@
           
           <!-- episodes list -->
           <div class="lg:col-span-4">
-            <EpisodesList :episodes="movieStore.currentMovie.episodes || []" />
+            <EpisodesList 
+              :episodes="movieStore.currentMovie.episodes || []"
+              @episode-selected="handleEpisodeSelected"
+              @user-rated="handleRatingSubmitted"
+            />
           </div>
         </div>
       </div>
@@ -62,9 +66,21 @@ const currentEpisode = ref(1);
 const qualities = ref(['1080p - webdl', '720p - webdl', '480p - webdl']);
 const selectedQuality = ref('1080p');
 
+
+
 const handleQualityChange = (quality: string) => {
   selectedQuality.value = quality;
   console.log('Quality changed to:', quality);
+};
+
+const handleEpisodeSelected = (episodeNumber: number) => {
+  currentEpisode.value = episodeNumber;
+  console.log('Episode selected:', episodeNumber);
+};
+
+const handleRatingSubmitted = (rating: number, comment: string) => {
+  console.log('User submitted rating:', { rating, comment, episode: selectedEpisode.value });
+  // You can add additional logic here if needed
 };
 
 const retryLoad = async () => {
