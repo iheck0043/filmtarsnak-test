@@ -30,7 +30,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 lg:gap-8">
           <!-- player and settings -->
           <div class="lg:col-span-8">
-            <VideoPlayer />
+            <VideoPlayer :videoId="route.params.id as string" />
             <ViewingIssues />
           </div>
           
@@ -79,7 +79,7 @@ const handleEpisodeSelected = (episodeNumber: number) => {
 };
 
 const handleRatingSubmitted = (rating: number, comment: string) => {
-  console.log('User submitted rating:', { rating, comment, episode: selectedEpisode.value });
+  console.log('User submitted rating:', { rating, comment, episode: currentEpisode.value });
   // You can add additional logic here if needed
 };
 
