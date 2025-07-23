@@ -15,19 +15,14 @@ export const useVideoStream = () => {
   const error = ref<string | null>(null);
   const streamData = ref<VideoStreamData | null>(null);
   const infoData = ref<VideoInfoData | null>(null);
+  const { get } = useApi();
 
   const fetchVideoStream = async (id: string) => {
     loading.value = true;
     error.value = null;
     
     try {
-      const response = await fetch(`https://ylnk.site/test/?action=stream&id=${id}`);
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
-      }
-      
-      const data = await response.json();
+      const data = await get(`?action=stream&id=${id}`);
       
       // Validate response structure
       if (!data.video_url) {
@@ -45,13 +40,7 @@ export const useVideoStream = () => {
 
   const fetchVideoInfo = async (id: string) => {
     try {
-      const response = await fetch(`https://ylnk.site/test/?action=info&id=${id}`);
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
-      }
-      
-      const data = await response.json();
+      const data = await get(`?action=info&id=${id}`);
       infoData.value = data;
     } catch (err) {
       console.error('Error fetching video info:', err);

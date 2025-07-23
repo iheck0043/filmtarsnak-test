@@ -29,17 +29,18 @@ export function useMovieData(id: number | string) {
   const streamData = ref<StreamData | null>(null);
   const loading = ref(true);
   const error = ref<string | null>(null);
+  const { get } = useApi();
 
   const fetchData = async () => {
     loading.value = true;
     try {
       const [movieRes, streamRes] = await Promise.all([
-        fetch(`https://ylnk.site/test/?action=info&id=${id}`),
-        fetch(`https://ylnk.site/test/?action=stream&id=${id}`)
+        get(`?action=info&id=${id}`),
+        get(`?action=stream&id=${id}`)
       ]);
-      if (!movieRes.ok || !streamRes.ok) throw new Error('خطا در دریافت اطلاعات');
-      movieData.value = await movieRes.json();
-      streamData.value = await streamRes.json();
+      
+      movieData.value = movieRes;
+      streamData.value = streamRes;
     } catch (e: any) {
       error.value = e.message;
     } finally {

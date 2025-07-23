@@ -1,5 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
+/* Import YekanBakh Font */
+@import url('../fonts/fonts.css');
 
 @tailwind base;
 @tailwind components;
-@tailwind utilities; 
+@tailwind utilities;
+
+/* Global Font Settings */
+@layer base {
+  html {
+    font-family: 'YekanBakh', system-ui, sans-serif;
+    direction: rtl;
+  }
+  
+  body {
+    font-family: 'YekanBakh', system-ui, sans-serif;
+    direction: rtl;
+    text-align: right;
+  }
+  
+  /* RTL Support */
+  .rtl {
+    direction: rtl;
+    text-align: right;
+  }
+  
+  .ltr {
+    direction: ltr;
+    text-align: left;
+  }
+} 

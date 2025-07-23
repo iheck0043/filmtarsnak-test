@@ -16,7 +16,7 @@
       </div>
       
       <!-- Main Content -->
-      <div v-else-if="movieStore.currentMovie" class="space-y-6">
+      <div v-else-if="movieStore.currentMovie" class="pb-10">
         <!-- moive info and score section-->
         <MovieInfoSection 
           :movie="movieStore.currentMovie"
@@ -30,12 +30,16 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 lg:gap-8">
           <!-- player and settings -->
           <div class="lg:col-span-8">
-            <VideoPlayer :videoId="route.params.id as string" />
+            <VideoPlayer 
+              :key="`video-${route.params.id}-${currentEpisode}`"
+              :videoId="route.params.id as string"
+              :episode="currentEpisode"
+            />
             <ViewingIssues />
           </div>
           
           <!-- episodes list -->
-          <div class="lg:col-span-4">
+          <div class="lg:col-span-4 mt-5 lg:mt-0">
             <EpisodesList 
               :episodes="movieStore.currentMovie.episodes || []"
               @episode-selected="handleEpisodeSelected"
@@ -64,7 +68,7 @@ const movieStore = useMovieStore();
 // State for MovieInfo props
 const currentEpisode = ref(1);
 const qualities = ref(['1080p - webdl', '720p - webdl', '480p - webdl']);
-const selectedQuality = ref('1080p');
+const selectedQuality = ref('1080p - webdl');
 
 
 

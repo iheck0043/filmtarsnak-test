@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div class="w-full ">
     <!-- Rating Section - Mobile: Show above episodes, Desktop: Show inside episodes -->
     <div 
       v-if="isLastEpisodeSelected"
@@ -7,15 +7,15 @@
       class="lg:hidden mb-6"
     >
       <RatingSection
-        :max-stars="10"
-        :movie-id="2501"
+        :max-stars="5"
+        :movie-id="props.movieId || String(route.params.id)"
         :initial-rating="1"
         @rated="handleRatingSubmitted"
       />
     </div>
 
-    <h3 class="text-xl font-bold mb-4 text-white">قسمت ها</h3>
-    <div v-if="episodes" class="space-y-2 max-h-[600px] overflow-y-auto pr-2 episodes-scroll">
+    <!-- <h3 class="text-xl font-bold mb-4 text-white">قسمت ها</h3> -->
+    <div v-if="episodes" class="space-y-2 pl-2 max-h-[600px] overflow-y-scroll pr-2 episodes-scroll">
       <div
         v-for="episode in episodes"
         :key="episode.number"
@@ -72,7 +72,7 @@
       >
         <RatingSection
           :max-stars="5"
-          :movie-id="2501"
+          :movie-id="props.movieId || String(route.params.id)"
           :initial-rating="1"
           @rated="handleRatingSubmitted"
         />
@@ -101,6 +101,7 @@ interface Episode {
 
 const props = defineProps<{
   episodes: Episode[] | null;
+  movieId?: string | number;
 }>();
 
 const emit = defineEmits<{
@@ -218,12 +219,12 @@ onMounted(() => {
 
 .episodes-scroll::-webkit-scrollbar-track {
   background: #1f2937;
-  border-radius: 3px;
+  border-radius: 2px;
 }
 
 .episodes-scroll::-webkit-scrollbar-thumb {
-  background: #4b5563;
-  border-radius: 3px;
+  background: #363c46;
+  border-radius: 2px;
 }
 
 .episodes-scroll::-webkit-scrollbar-thumb:hover {

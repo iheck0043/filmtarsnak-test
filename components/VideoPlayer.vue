@@ -208,11 +208,24 @@ interface Props {
   videoId?: string;
   videoUrl?: string;
   subtitleUrl?: string;
+  episode?: number;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  videoId: '2501'
+  videoId: undefined
 });
+
+// Get videoId from route if not provided as prop
+const route = useRoute();
+const videoId = computed(() => props.videoId || route.params.id);
+
+// Watch for videoId changes to reload video
+watch(videoId, async (newVideoId, oldVideoId) => {
+  if (newVideoId && newVideoId !== oldVideoId) {
+    console.log('Video ID changed, reloading video:', newVideoId);
+    await reloadVideo();
+  }
+}, { immediate: false });
 
 const { loading, error, streamData, infoData, fetchVideoStream, fetchVideoInfo, clearError } = useVideoStream();
 
@@ -340,10 +353,43 @@ const toggleSubtitle = () => {
 
 const retryLoad = async () => {
   clearError();
-  if (props.videoId) {
-    await fetchVideoStream(props.videoId);
-    await fetchVideoInfo(props.videoId);
+  if (videoId.value) {
+    const episodeParam = props.episode ? `&episode=${props.episode}` : '';
+    await fetchVideoStream(`${String(videoId.value)}${episodeParam}`);
+    await fetchVideoInfo(`${String(videoId.value)}${episodeParam}`);
   }
+};
+
+// Reload video function
+const reloadVideo = async () => {
+  console.log('Reloading video...');
+  
+  // Reset video state
+  currentTime.value = 0;
+  isPlaying.value = false;
+  
+  // Clear existing HLS instance
+  if (hls) {
+    hls.destroy();
+    hls = null;
+  }
+  
+  // Clear error state
+  clearError();
+  
+  // Fetch new video data
+if (videoId.value && !props.videoUrl) {
+  // Add episode to the API call if available
+  const episodeParam = props.episode ? `&episode=${props.episode}` : '';
+  await fetchVideoStream(`${String(videoId.value)}${episodeParam}`);
+  await fetchVideoInfo(`${String(videoId.value)}${episodeParam}`);
+} else if (props.videoUrl) {
+  // Wait for DOM update
+  await nextTick();
+  setTimeout(() => {
+    initializeHLS();
+  }, 100);
+}
 };
 
 // Video control methods
@@ -532,17 +578,18 @@ watch(streamData, (newData) => {
 // Lifecycle
 onMounted(async () => {
   console.log('VideoPlayer mounted with props:', {
-    videoId: props.videoId,
+            videoId: videoId.value,
     videoUrl: props.videoUrl,
     subtitleUrl: props.subtitleUrl
   });
   
-  if (props.videoId && !props.videoUrl) {
-    console.log('Fetching video stream for ID:', props.videoId);
-    await fetchVideoStream(props.videoId);
-    // Also fetch video info for poster
-    await fetchVideoInfo(props.videoId);
-  } else if (props.videoUrl) {
+  if (videoId.value && !props.videoUrl) {
+  console.log('Fetching video stream for ID:', videoId.value);
+  const episodeParam = props.episode ? `&episode=${props.episode}` : '';
+  await fetchVideoStream(`${String(videoId.value)}${episodeParam}`);
+  // Also fetch video info for poster
+  await fetchVideoInfo(`${String(videoId.value)}${episodeParam}`);
+} else if (props.videoUrl) {
     console.log('Using provided video URL:', props.videoUrl);
     // Wait for DOM to be ready
     await nextTick();

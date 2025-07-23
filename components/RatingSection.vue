@@ -13,7 +13,7 @@
     <!-- Opinion Type Selection -->
     <div class="mb-4">
          <!-- Spoiler Warning Checkbox -->
-         <label class="flex items-center gap-2 text-sm text-gray-300 cursor-pointer">
+         <label class="flex items-center gap-2 text-xs text-gray-300 cursor-pointer">
         <input 
           v-model="includeSpoilerWarning"
           type="checkbox" 
@@ -25,7 +25,7 @@
         <button
           @click="opinionType = 'positive'"
           :class="[
-            ' h-11 px-4 rounded-md text-sm font-medium transition-all  flex justify-center items-center',
+            ' h-11 px-4 rounded-md text-xs font-medium transition-all  flex justify-center items-center',
             opinionType === 'positive' 
               ? 'bg-[#341A1B] text-white border border-[#AB070F]' 
               : 'bg-[#1B1C1F] text-gray-300 border border-[#1B1C1F] hover:border-gray-500'
@@ -36,7 +36,7 @@
         <button
           @click="opinionType = 'critical'"
           :class="[
-            ' h-11 px-4 rounded-md text-sm font-medium transition-all flex justify-center items-center',
+            ' h-11 px-4 rounded-md text-xs font-medium transition-all flex justify-center items-center',
             opinionType === 'critical' 
               ? 'bg-[#341A1B] text-white border border-[#AB070F]' 
               : 'bg-[#1B1C1F] text-gray-300 border border-[#1B1C1F] hover:border-gray-500'
@@ -50,16 +50,16 @@
     </div>
 
     <!-- Comment Textarea -->
-    <div class="mb-4">
+    <div class="mb-2 relative">
       <textarea
         v-model="comment"
         placeholder="متن نظر"
-        rows="3"
+        rows="4"
         :disabled="hasUserRated"
-        class="w-full bg-[#1B1C1F] border border-gray-600 rounded-md px-3 py-2 text-white placeholder-gray-400 focus:border-red-600 focus:ring-1 focus:ring-red-600 focus:outline-none resize-none disabled:opacity-50 disabled:cursor-not-allowed"
+        class="w-full bg-[#1B1C1F] text-xs border border-gray-600 rounded-md px-3 py-2 text-white placeholder-gray-400 focus:border-red-600 focus:ring-1 focus:ring-red-600 focus:outline-none resize-none disabled:opacity-50 disabled:cursor-not-allowed"
       ></textarea>
-      <div class="flex justify-between items-center mt-2">
-        <span class="text-sm text-gray-500">{{ comment.length }} / {{ maxCommentLength }}</span>
+      <div class="flex justify-between items-center mt-2 absolute bottom-2 left-2">
+        <span class="text-xs text-gray-500">{{ comment.length }} / {{ maxCommentLength }}</span>
       </div>
     </div>
 
@@ -76,7 +76,7 @@
     <button
       @click="submitRating"
       :disabled="isSubmitting || hasUserRated || !userRating"
-      class="min-w-[142px] bg-red-600 hover:bg-red-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-medium py-2 px-4 rounded-md transition-colors flex items-center justify-center gap-2 text-sm"
+      class="text-xs min-w-[142px] bg-red-600 hover:bg-red-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-medium py-2 px-4 rounded-md transition-colors flex items-center justify-center gap-2"
     >
       <div v-if="isSubmitting" class="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
       <IconCheck v-if="!isSubmitting" class="w-4 h-4" />
@@ -129,8 +129,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   maxStars: 5,
-  initialRating: 1,
-  movieId: 2501
+  initialRating: 1
 });
 
 const emit = defineEmits<{

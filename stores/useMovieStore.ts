@@ -51,7 +51,8 @@ export const useMovieStore = defineStore('movie', {
       this.error = null
       
       try {
-        const movieData = await $fetch<MovieData>(`https://ylnk.site/test/?action=info&id=${id}`)
+        const { get } = useApi()
+        const movieData = await get(`?action=info&id=${id}`)
         this.currentMovie = movieData
       } catch (error: any) {
         this.error = error.message || 'خطا در دریافت اطلاعات فیلم'
@@ -69,7 +70,7 @@ export const useMovieStore = defineStore('movie', {
         this.bookmarkedMovies.push(movieId)
       }
       
-      // ذخیره در localStorage
+      // Save to localStorage
       if (process.client) {
         localStorage.setItem('bookmarked-movies', JSON.stringify(this.bookmarkedMovies))
       }

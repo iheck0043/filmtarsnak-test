@@ -27,14 +27,12 @@ interface Movie {
 export const useMovie = () => {
   const movie = ref<Movie | null>(null);
   const error = ref<string | null>(null);
+  const { get } = useApi();
 
   const fetchMovie = async (id: number | string) => {
     try {
-      const { data, error: fetchError } = await useFetch<Movie>(`https://ylnk.site/test/?action=info&id=${id}`);
-      if (fetchError.value) {
-        throw new Error(fetchError.value.message);
-      }
-      movie.value = data.value;
+      const data = await get(`?action=info&id=${id}`);
+      movie.value = data;
     } catch (e: any) {
       error.value = e.message;
       console.error('Failed to fetch movie data:', e);

@@ -1,5 +1,5 @@
 <template>
-  <div class=" rounded-lg p-4 mb-6">
+  <div class=" rounded-lg  mb-3">
     <div class="flex flex-col xl:flex-row xl:items-center lg:justify-between gap-4">
       <!-- right: movie info and controls -->
       <div class="flex flex-col justify-between lg:flex-row lg:items-center gap-4 flex-1">
@@ -18,7 +18,11 @@
             <h1 class="text-xl lg:text-2xl font-bold text-white">
               سریال {{ movie?.title_en }}
             </h1>
-            <p class="text-sm lg:text-base text-gray-300">{{ movie?.title_fa }}</p>
+            <p class="text-sm lg:text-base text-gray-300">
+              <span v-if="movie?.year" class="text-xs lg:text-xs text-gray-400">{{ movie.year }} -</span>
+              
+              {{ movie?.title_fa }}</p>
+            
           </div>
         </div>
 

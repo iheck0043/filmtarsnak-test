@@ -1,13 +1,22 @@
 {
-  "name": "nuxt-app",
+  "name": "filmtarsnak",
+  "version": "1.0.0",
+  "description": "A modern movie streaming platform built with Nuxt 3, featuring Persian language support and YekanBakh font",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=20.19.4",
+    "npm": ">=10.0.0"
+  },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "typecheck": "nuxt typecheck",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@nuxt/eslint": "^1.7.0",
@@ -25,5 +34,26 @@
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.14.0"
-  }
+  },
+  "keywords": [
+    "nuxt3",
+    "vue3",
+    "typescript",
+    "tailwindcss",
+    "persian",
+    "rtl",
+    "streaming",
+    "movie",
+    "yekanbakh"
+  ],
+  "author": "FilmTarsnak Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/filmtarsnak.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/filmtarsnak/issues"
+  },
+  "homepage": "https://github.com/your-username/filmtarsnak#readme"
 }

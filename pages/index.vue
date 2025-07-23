@@ -8,6 +8,7 @@
 import { navigateTo } from '#app';
 
 onMounted(() => {
+  // Redirect to a default movie or show movie selection
   navigateTo('/player/2501');
 });
 </script> 

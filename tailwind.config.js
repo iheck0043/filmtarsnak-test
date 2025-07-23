@@ -9,7 +9,16 @@ module.exports = {
     "./error.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'yekan': ['YekanBakh', 'system-ui', 'sans-serif'],
+        'sans': ['YekanBakh', 'system-ui', 'sans-serif'],
+      },
+      direction: {
+        'rtl': 'rtl',
+        'ltr': 'ltr',
+      }
+    },
   },
   plugins: [],
 } 

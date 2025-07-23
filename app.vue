@@ -11,6 +11,8 @@
 
 <style>
 body {
-  font-family: 'Vazirmatn', sans-serif;
+  font-family: 'YekanBakh', system-ui, sans-serif;
+  direction: rtl;
+  text-align: right;
 }
 </style>

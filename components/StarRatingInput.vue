@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-wrap items-center" :class="gapClass" :style="containerStyle">
+  <div dir="ltr" class="flex flex-wrap justify-end items-center" :class="gapClass" :style="containerStyle">
           <button
         v-for="star in maxStars"
         :key="star"
@@ -46,9 +46,11 @@ const emit = defineEmits<{
 // Local hover state
 const hoverRating = ref<number>(0);
 
-// Computed rating - use modelValue if user has rated, otherwise use initialRating as default
+// Computed rating - convert 0-5 scale back to star count for display
 const currentRating = computed(() => {
-  return props.modelValue > 0 ? props.modelValue : props.initialRating;
+  const rating = props.modelValue > 0 ? props.modelValue : props.initialRating;
+  // Convert 0-5 scale to star count for display
+  return Math.round((rating / 5) * props.maxStars);
 });
 
 // Dynamic star sizing based on number of stars to fit in one line
@@ -87,10 +89,14 @@ const hoverEffectClass = computed(() => {
   return 'hover:scale-[1.01]';                           // بزرگ شدن 1% برای ستاره‌های بسیار کوچک
 });
 
-// Handle star click
+// Handle star click - normalize rating to 0-5 scale
 const handleRating = (rating: number) => {
   if (props.disabled) return;
-  emit('update:modelValue', rating);
+  
+  // Normalize rating to 0-5 scale regardless of maxStars
+  const normalizedRating = (rating / props.maxStars) * 5;
+  
+  emit('update:modelValue', normalizedRating);
   hoverRating.value = 0;
 };
 </script>
