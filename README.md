@@ -190,53 +190,6 @@ Custom Tailwind classes available:
 - `rtl` - RTL direction
 - `ltr` - LTR direction
 
-## 📱 Responsive Design
-
-The application is mobile-first and responsive:
-- **Mobile**: < 640px
-- **Tablet**: 640px - 1024px
-- **Desktop**: > 1024px
-
-## 🚀 Production Deployment
-
-### Build for production
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-### Preview production build
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-### Environment Variables for Production
-
-```bash
-NUXT_PUBLIC_API_BASE_URL=https://your-production-api.com/
-NODE_ENV=production
-```
 
 ## 🔒 Security Notes
 
@@ -273,25 +226,6 @@ npm run lint
 - Tailwind CSS for styling
 - ESLint for code quality
 
-## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## 📄 License
-
-This project is licensed under the MIT License.
-
-## 🆘 Support
-
-For support and questions:
-- Create an issue in the repository
-- Check the documentation
-- Review the API setup guide
-
----
 
 **Note**: Make sure to have Node.js version 20.19.4 or higher installed for optimal performance and compatibility.
